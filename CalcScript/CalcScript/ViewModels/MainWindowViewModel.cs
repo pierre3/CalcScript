@@ -28,6 +28,13 @@ namespace CalcScript
             set { SetProperty(ref _result, value); }
         }
 
+        private IList<string> _variables;
+        public IList<string> Variables
+        {
+            get { return _variables; }
+            set { SetProperty(ref _variables, value); }
+        }
+
         public DelegateCommand CalculateCommand { get; }
 
         public MainWindowViewModel()
@@ -49,6 +56,8 @@ namespace CalcScript
                     typeof(ScriptingHost));
                 var context = await script.RunAsync(scriptingHost);
                 Result = context.ReturnValue.ToString();
+                Variables = new List<string>( context.Variables.Select(x=>$"{x.Name}= {x.Value}"));
+               
             }catch(CompilationErrorException e)
             {
                 Result = e.ToString();

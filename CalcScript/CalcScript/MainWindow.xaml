@@ -15,11 +15,19 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <TextBox Grid.Row="0" AcceptsReturn="True" AcceptsTab="True" Text="{Binding CodeText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-        <TextBlock Grid.Row="1" Padding="4,2" FontSize="16" 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>        
+        <TextBox Grid.Row="0" AcceptsReturn="True" AcceptsTab="True" 
+                 Text="{Binding CodeText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Padding="4,2" FontSize="16" 
                    Background="LightSteelBlue" Text="{Binding Result}"/>
-        <Button Grid.Row="2" Padding="2" Width="100" 
-                HorizontalAlignment="Center"  
+        <Button Grid.Row="2" Grid.ColumnSpan="2" Padding="2" Width="100" 
+                HorizontalAlignment="Center"
                 Command="{Binding CalculateCommand}">Calc</Button>
+        <ListView Grid.Column="1" Width="200" ItemsSource="{Binding Variables}" />
     </Grid>
 </Window>
+
+    
