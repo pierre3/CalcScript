@@ -6,7 +6,20 @@
         xmlns:local="clr-namespace:CalcScript"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+    <Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>
+    <Grid Margin="4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <TextBox Grid.Row="0" AcceptsReturn="True" AcceptsTab="True" Text="{Binding CodeText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock Grid.Row="1" Padding="4,2" FontSize="16" 
+                   Background="LightSteelBlue" Text="{Binding Result}"/>
+        <Button Grid.Row="2" Padding="2" Width="100" 
+                HorizontalAlignment="Center"  
+                Command="{Binding CalculateCommand}">Calc</Button>
     </Grid>
 </Window>
