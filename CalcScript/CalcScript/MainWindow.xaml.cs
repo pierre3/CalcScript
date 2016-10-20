@@ -23,6 +23,18 @@ namespace CalcScript
         public MainWindow()
         {
             InitializeComponent();
+            codeTextBox.Focus();
+        }
+
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.Key == Key.Enter) && e.KeyboardDevice.Modifiers.HasFlag(ModifierKeys.Control))
+            {
+                if (calcButton.Command?.CanExecute(calcButton.CommandParameter) ?? false)
+                {
+                    calcButton.Command?.Execute(calcButton.CommandParameter);
+                }
+            }
         }
     }
 }

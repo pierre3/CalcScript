@@ -14,6 +14,13 @@ namespace CalcScript
     {
         private ScriptingHost scriptingHost = new ScriptingHost();
 
+        private string _errorMessages;
+        public string ErrorMessages
+        {
+            get { return _errorMessages; }
+            set { SetProperty(ref _errorMessages, value); }
+        }
+
         private string _codeText;
         public string CodeText
         {
@@ -44,7 +51,7 @@ namespace CalcScript
 
         private async Task Calculate()
         {
-            
+            ErrorMessages = "";
             try
             {
                 var script = CSharpScript.Create(CodeText, ScriptOptions.Default
@@ -60,7 +67,8 @@ namespace CalcScript
                
             }catch(CompilationErrorException e)
             {
-                Result = e.ToString();
+                ErrorMessages = e.ToString();
+                Result = "E";
             }
         }
     }

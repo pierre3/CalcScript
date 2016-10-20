@@ -5,28 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CalcScript"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="525"
+        PreviewKeyDown="Window_PreviewKeyDown">
     <Window.DataContext>
         <local:MainWindowViewModel/>
     </Window.DataContext>
     <Grid Margin="4">
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="3*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>
-        </Grid.ColumnDefinitions>        
-        <TextBox Grid.Row="0" AcceptsReturn="True" AcceptsTab="True" 
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Padding="2" x:Name="calcButton"
+                Command="{Binding CalculateCommand}">Calc (Ctrl+Enter)</Button>
+            <TextBlock Grid.Column="1" Padding="4,2,16,2" 
+                       FontSize="16" FontWeight="Bold" TextAlignment="Right" 
+                Background="Ivory" Text="{Binding Result}"/>
+            <Rectangle Grid.Column="1" Stroke="DarkSlateBlue"/>
+        </Grid>
+
+        <ListView Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" ItemsSource="{Binding Variables}" />
+        <GridSplitter Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" 
+                      VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="4"/>
+
+        <TextBox Grid.Row="1" AcceptsReturn="True" Padding="4" x:Name="codeTextBox"
                  Text="{Binding CodeText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Padding="4,2" FontSize="16" 
-                   Background="LightSteelBlue" Text="{Binding Result}"/>
-        <Button Grid.Row="2" Grid.ColumnSpan="2" Padding="2" Width="100" 
-                HorizontalAlignment="Center"
-                Command="{Binding CalculateCommand}">Calc</Button>
-        <ListView Grid.Column="1" Width="200" ItemsSource="{Binding Variables}" />
+
+        <TextBox Grid.Row="2" Grid.ColumnSpan="2" Padding="0,4,0,0" 
+                 Text="{Binding ErrorMessages}" FontFamily="Consolas"
+                 ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        <GridSplitter Grid.Row="2" Grid.ColumnSpan="2" 
+                      VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="4"/>
+
     </Grid>
 </Window>
 
